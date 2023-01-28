@@ -1,5 +1,11 @@
 let searchInputEl = document.querySelector("#search-input");
 let searchBtnEl = document.querySelector("#search-button");
+let todaySection = document.querySelector("#today");
+let searchLocationEl = document.querySelector("#search-location");
+let todayDateEl = document.querySelector("#today-date");
+let todayTempEl = document.querySelector("#today-temp");
+let todayWindEl = document.querySelector("#today-wind");
+let todayHumidityEl = document.querySelector("#today-humidity");
 
 let apiKey = "40640050a45cbd8cf8d35ada1e14fee3";
 
@@ -31,15 +37,25 @@ searchBtnEl.addEventListener("click", function (e) {
       console.log(city);
       console.log(`City Name: ${city.name}`);
 
-      let cityDataQueryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&appid=${apiKey}`;
+      // Display today's data for searched location
+
+      let cityDataQueryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${apiKey}`;
 
       fetch(cityDataQueryURL)
         .then((response) => response.json())
         .then((cityData) => {
           let cityWeatherInfo = cityData.list;
           console.log(cityWeatherInfo);
+          console.log(cityData.city.name);
 
-          cityWeatherInfo.forEach((forcast, i) => {});
+          // Display today's data for searched location
+          let todaysDate = moment().format("dddd, MMM Do YYYY");
+          todayDateEl.textContent = todaysDate;
+
+          searchLocationEl.textContent = cityData.city.name;
+          todayTempEl.textContent = cityWeatherInfo[0].main.temp;
+          todayHumidityEl.textContent = cityWeatherInfo[0].main.humidity;
+          todayWindEl.textContent = cityWeatherInfo[0].wind.speed;
         });
     });
 });
