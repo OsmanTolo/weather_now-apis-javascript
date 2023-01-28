@@ -21,7 +21,7 @@ if (window.navigator.geolocation) {
     (err) => console.log(err)
   );
 }
-// console.log(userLocation);
+console.log(userLocation);
 
 searchBtnEl.addEventListener("click", function (e) {
   e.preventDefault();
@@ -49,7 +49,10 @@ searchBtnEl.addEventListener("click", function (e) {
           console.log(cityData.city.name);
 
           // Display today's data for searched location
-          let todaysDate = moment().format("dddd, MMM Do YYYY");
+          let todaysDate = moment(cityWeatherInfo[0].dt, "X").format(
+            "dddd, MMM Do YYYY"
+          );
+          console.log(`Today's date: ${todaysDate}`);
           todayDateEl.textContent = todaysDate;
 
           searchLocationEl.textContent = cityData.city.name;
