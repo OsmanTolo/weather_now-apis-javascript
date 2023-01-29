@@ -58,21 +58,59 @@ searchBtnEl.addEventListener("click", function (e) {
           todayWindEl.textContent = cityWeatherInfo[0].wind.speed;
 
           // Display next 5 days data
-          forecastContainerEl.innerHTML = `
-          <div class="container">
-            <div class="row"></div>
-          </div>
-          `;
           let fiveDayForecastArr = [
-            cityWeatherInfo[0],
             cityWeatherInfo[8],
             cityWeatherInfo[16],
             cityWeatherInfo[24],
             cityWeatherInfo[32],
+            cityWeatherInfo[39],
           ];
 
           fiveDayForecastArr.forEach((forecast) => {
-            console.log(forecast.dt);
+            forecastContainerEl.innerHTML += `
+            <div class="col-sm">
+              <div class="forecast-card card">
+                <h2 class="text-center mt-1">${moment(forecast.dt, "X").format(
+                  "dddd"
+                )}</h2>
+                <img src="http://openweathermap.org/img/wn/${
+                  forecast.weather[0].icon
+                }@2x.png">
+                <div class="card-body">
+                  <p class="card-text">Temp: <span id="temp">${
+                    forecast.main.temp
+                  }</span></p>
+                  <p class="card-text">Wind: <span id="wind">${
+                    forecast.wind.speed
+                  }</span></p>
+                  <p class="card-text">
+                    Humidity: <span id="humidity">${
+                      forecast.main.humidity
+                    }</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            `;
+            // <div class="col-sm">
+            //   <div class="forecast-card">
+            //     <h2 class="card-title mt-1">${moment(forecast.dt, "X").format(
+            //       "dddd"
+            //     )}</h2>
+            //     <img src="http://openweathermap.org/img/wn/${
+            //       forecast.weather[0].icon
+            //     }@2x.png">
+            //     <p class="card-text">Temp: <span id="temp">${
+            //       forecast.main.temp
+            //     }</span></p>
+            //     <p class="card-text">Wind: <span id="wind">${
+            //       forecast.wind.speed
+            //     }</span></p>
+            //     <p class="card-text">
+            //       Humidity: <span id="humidity">${forecast.main.humidity}</span>
+            //     </p>
+            //   </div>
+            // </div>
           });
         });
     });
